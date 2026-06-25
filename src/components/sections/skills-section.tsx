@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Suspense, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FiX } from "react-icons/fi";
 import { skillsData } from "@/data/skills";
 import { GlassPanel } from "@/components/ui/glass-panel";
@@ -21,11 +21,28 @@ const SkillsScene = dynamic(
 
 export function SkillsSection() {
   const [activeSkillId, setActiveSkillId] = useState<string | null>(null);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { rootMargin: "200px" } // Load slightly before it comes into view
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const activeSkill = activeSkillId ? skillsData.find(s => s.id === activeSkillId) : null;
 
   return (
-    <section id="skills" data-section className="relative w-full h-[120vh] z-10 pt-24 mb-32 isolate">
+    <section ref={sectionRef} id="skills" data-section className="relative w-full h-[120vh] z-10 pt-24 mb-32 isolate">
       <div className="absolute inset-x-0 top-12 text-center pointer-events-none z-20">
         <h2 className="text-4xl md:text-5xl font-semibold tracking-[-0.04em] text-white">Neural Constellation</h2>
         <p className="mt-4 text-white/50 uppercase tracking-[0.2em] text-xs">Explore my technology stack</p>
@@ -34,10 +51,12 @@ export function SkillsSection() {
       <div className="sticky top-0 w-full h-screen">
         {/* The 3D Canvas */}
         <div className="absolute inset-0 z-0">
-          <SkillsScene 
-            onSkillClick={(id) => setActiveSkillId(id)} 
-            activeSkillId={activeSkillId} 
-          />
+          {isInView && (
+            <SkillsScene 
+              onSkillClick={(id) => setActiveSkillId(id)} 
+              activeSkillId={activeSkillId} 
+            />
+          )}
         </div>
 
         {/* 2D Overlay UI for Skill Details */}

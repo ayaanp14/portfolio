@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
-import { Float, Html, MeshTransmissionMaterial } from "@react-three/drei";
+import { Float, Html } from "@react-three/drei";
 import { type SkillNode } from "@/data/skills";
 
 type SkillNodeMeshProps = {
@@ -62,21 +62,16 @@ export function SkillNodeMesh({ skill, position, isActive, isRelated, onClick }:
         {/* The Glass Orb */}
         <mesh ref={meshRef} castShadow receiveShadow>
           <icosahedronGeometry args={[0.8, 4]} />
-          <MeshTransmissionMaterial
-            backside
-            samples={4}
+          <meshPhysicalMaterial
+            transparent
+            transmission={0.9}
+            opacity={1}
+            roughness={0.2}
+            ior={1.5}
             thickness={0.5}
-            chromaticAberration={0.05}
-            anisotropy={0.1}
-            distortion={0.2}
-            distortionScale={0.1}
-            temporalDistortion={0.1}
-            iridescence={0.5}
-            iridescenceIOR={1.5}
-            clearcoat={1}
-            attenuationDistance={0.5}
-            attenuationColor={baseColor}
             color="#ffffff"
+            attenuationDistance={0.5}
+            attenuationColor={new THREE.Color(baseColor)}
           />
         </mesh>
 

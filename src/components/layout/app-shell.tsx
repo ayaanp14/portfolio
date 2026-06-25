@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 
 import { CustomCursor } from "@/components/system/custom-cursor";
 import { LoadingScreen } from "@/components/system/loading-screen";
-import { ShaderCanvas } from "@/components/webgl/shader-canvas";
 
 type AppShellProps = {
   children: ReactNode;

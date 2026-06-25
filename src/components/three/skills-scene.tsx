@@ -8,7 +8,6 @@ import {
   Preload, 
   CameraControls 
 } from "@react-three/drei";
-import { EffectComposer, Bloom, ChromaticAberration, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { NeuralNetwork } from "./neural-network";
 
@@ -56,12 +55,6 @@ function SceneContent({ onSkillClick, activeSkillId }: SkillsSceneProps) {
         far={10} 
         color="#000000"
       />
-
-      <EffectComposer>
-        <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} height={300} intensity={1.5} />
-        <ChromaticAberration offset={new THREE.Vector2(0.002, 0.002)} />
-        <Vignette eskil={false} offset={0.1} darkness={1.1} />
-      </EffectComposer>
     </>
   );
 }
