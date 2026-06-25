@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #050505;
+  --color-ink-soft: #101114;
+  --color-glass: rgba(255, 255, 255, 0.08);
+  --color-glass-strong: rgba(255, 255, 255, 0.16);
+  --color-glass-white: rgba(255, 255, 255, 0.72);
+  --color-cyan: #54f4ff;
+  --color-blue: #7aa7ff;
+  --color-purple: #8b5cf6;
+  --color-lilac: #c4b5fd;
+  --color-line: rgba(255, 255, 255, 0.14);
+
+  --font-sans: Inter, "SF Pro Display", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-display: Inter, "SF Pro Display", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-glow-cyan: 0 0 48px rgba(84, 244, 255, 0.18);
+  --shadow-glow-purple: 0 0 56px rgba(139, 92, 246, 0.2);
+}
+
+:root {
+  color-scheme: dark;
+  background: #050505;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: auto;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  overflow-x: clip;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(84, 244, 255, 0.08), transparent 28rem),
+    radial-gradient(circle at 80% 18%, rgba(139, 92, 246, 0.12), transparent 32rem),
+    #050505;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-sans);
+}
+
+body.is-loading {
+  overflow: hidden;
+}
+
+::selection {
+  background: rgba(84, 244, 255, 0.28);
+  color: #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+canvas {
+  display: block;
+}
+
+.noise-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.16;
+  mix-blend-mode: soft-light;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at 50% 35%, black, transparent 72%);
+}
+
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+
+  a,
+  button,
+  [role="button"] {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility container-page {
+  width: min(100% - 2rem, 1200px);
+  margin-inline: auto;
+}
+
+@utility glass-panel {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.045));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 24px 80px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(24px) saturate(150%);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
